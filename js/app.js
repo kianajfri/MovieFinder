@@ -52,11 +52,14 @@ function startHeroAutoPlay() {
 }
 
 async function initHero() {
-  const data = await getShowsPage(1);
+  const data = await showsPage(1);
 
   if (!data) return;
 
-    heroShows = data.filter((s) => s.image).slice(0, 5);
+    heroShows = data
+  .filter(s => s.image?.original) 
+  .slice(0, 8);
+
 
   if (heroShows.length === 0) return;
 
@@ -109,3 +112,4 @@ async function loadHomeMovies() {
   });
 }
 loadHomeMovies();
+initHero();

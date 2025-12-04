@@ -88,13 +88,14 @@ body {
 
 .hero {
   position: relative;
-  min-height: 320px;
+  height: 380px;  
   padding: 40px 30px;
   display: flex;
   align-items: flex-end;
-  background-size: cover;
-  background-position: center;
+  background-size: cover;    
+  background-position: center; 
   background-repeat: no-repeat;
+  border-radius: 10px;
 }
 
 .hero-overlay {
@@ -171,6 +172,7 @@ body {
 
 @media (max-width: 768px) {
   .hero {
+     height: 260px;
     padding: 16px;
   }
 
