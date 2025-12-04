@@ -8,16 +8,22 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-     <header class="navbar">
-    <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
+    <header class="navbar">
+  <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
 
-    <form class="search-box" id="searchForm">
-      <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off" />
-      <button type="submit">Search</button>
+  <nav class="menu">
+    <a href="/html/index.html">Home</a>
+    <a href="/html/genre.html">Genres</a>
+    <a href="/html/search.html">Search</a>
+    <a href="/html/api.html">API Docs</a>
+  </nav>
 
-      <div class="search-dropdown" id="searchDropdown"></div>
-    </form>
-  </header>
+  <form class="search-box" id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off" />
+    <button type="submit">Search</button>
+    <div class="search-dropdown" id="searchDropdown"></div>
+  </form>
+</header>
     <main>
     <section class="hero">
       <h1>Discover Movies & TV Shows</h1>

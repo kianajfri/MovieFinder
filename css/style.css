@@ -21,13 +21,27 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
+  gap: 20px;
 }
 
-.header-logo {
-  width: 7.25rem;
-  height: 3.5rem;
-  opacity: 1;
 
+.header-logo {
+  width: 5rem;
+  height: 2.5rem;
+  opacity: 1;
+  margin-left: 47px;
+
+}
+
+.menu a {
+  margin-right: 18px;
+  text-decoration: none;
+  color: #ddd;
+  font-size: 15px;
+}
+
+.menu a:hover {
+  color: #f5c518; 
 }
 
 .search-box {
@@ -94,7 +108,6 @@ body {
   gap: 20px;
 }
 
-/* Movie Card */
 .movie-card {
   background: #1a1a1a;
   border-radius: 10px;
