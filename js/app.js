@@ -51,6 +51,18 @@ function startHeroAutoPlay() {
   }, 5000);
 }
 
+async function initHero() {
+  const data = await getShowsPage(1);
+
+  if (!data) return;
+
+    heroShows = data.filter((s) => s.image).slice(0, 5);
+
+  if (heroShows.length === 0) return;
+
+  renderHero();
+  startHeroAutoPlay();
+
 
 
 async function loadHomeMovies() {
