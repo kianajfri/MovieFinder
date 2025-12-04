@@ -28,6 +28,10 @@ export async function showLookUp(id) {
   return fetchData(`/lookup/shows?thetvdb=${id}`);
 }
 
-export async function showSingleSearch(query) {
+export async function showPeopleSearch(query) {
   return fetchData(`/search/people?q=${encodeURIComponent(query)}`);
+}
+
+ export async function showsPage(page = 0) {
+  return fetchData(`/shows?page=${page}`);
 }
