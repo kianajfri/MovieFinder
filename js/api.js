@@ -25,5 +25,9 @@ export async function showSingleSearch(query) {
 }
 
 export async function showLookUp(id) {
-  return fetchData(`/lookup/shows?tvrage=${id}`);
+  return fetchData(`/lookup/shows?thetvdb=${id}`);
+}
+
+export async function showSingleSearch(query) {
+  return fetchData(`/search/people?q=${encodeURIComponent(query)}`);
 }
