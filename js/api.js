@@ -20,3 +20,7 @@ export async function searchShows(query) {
   return fetchData(`/search/shows?q=${encodeURIComponent(query)}`);
 }
 
+export async function showSingleSearch(query) {
+  return fetchData(`/singlesearch/shows?q=:query${encodeURIComponent(query)}`);
+}
+
