@@ -44,6 +44,14 @@ function changeHeroSlide(direction = 1) {
   renderHero();
 }
 
+function startHeroAutoPlay() {
+  if (heroTimer) clearInterval(heroTimer);
+  heroTimer = setInterval(() => {
+    changeHeroSlide(1);
+  }, 5000);
+}
+
+
 
 async function loadHomeMovies() {
   const movieGrid = document.getElementById("movieGrid");
