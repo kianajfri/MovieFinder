@@ -113,6 +113,13 @@ async function loadHomeMovies() {
       }
     }
 
+      filtered.sort(function (a, b) {
+      const ratingA = a.rating && a.rating.average ? a.rating.average : 0;
+      const ratingB = b.rating && b.rating.average ? b.rating.average : 0;
+
+      return ratingB - ratingA;
+    });
+
   data.forEach(show => {
     const card = document.createElement("div");
     card.className = "movie-card";
