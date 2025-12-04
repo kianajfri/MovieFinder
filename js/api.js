@@ -16,3 +16,7 @@ async function fetchData(endpoint) {
   }
 }
 
+export async function searchShows(query) {
+  return fetchData(`/search/shows?q=${encodeURIComponent(query)}`);
+}
+
