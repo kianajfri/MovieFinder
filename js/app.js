@@ -63,6 +63,22 @@ async function initHero() {
   renderHero();
   startHeroAutoPlay();
 
+   const prevBtn = document.getElementById("heroPrev");
+  const nextBtn = document.getElementById("heroNext");
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", () => {
+      changeHeroSlide(-1);
+      startHeroAutoPlay();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      changeHeroSlide(1);
+      startHeroAutoPlay();
+    });
+  }
+}
+
 
 
 async function loadHomeMovies() {
