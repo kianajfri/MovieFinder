@@ -85,7 +85,6 @@ heroShows = data
 }
 
 
-
 async function loadHomeMovies() {
    const movieGrid = document.getElementById("movieGrid");
   if (!movieGrid) return;
@@ -98,6 +97,20 @@ async function loadHomeMovies() {
     if (!data) {
       movieGrid.innerHTML = "<p style='color:#aaa;'>Failed to load shows.</p>";
       return;
+    }
+
+     const filtered = [];
+    for (let i = 0; i < data.length; i++) {
+      const show = data[i];
+
+      if (!show.image || !show.image.medium || !show.premiered) continue;
+
+      const year = parseInt(show.premiered.slice(0, 4), 10);
+      const rating = show.rating && show.rating.average ? show.rating.average : 0;
+
+      if (year >= 2018 && rating >= 6) {
+        filtered.push(show);
+      }
     }
 
   data.forEach(show => {
