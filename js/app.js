@@ -20,6 +20,20 @@ function renderHero() {
     show.image?.original || show.image?.medium || "./assets/no-image.png";
   heroSection.style.backgroundImage = `url(${bgImage})`;
 
+    titleEl.textContent = show.name || "Unknown title";
+  sumEl.textContent = show.summary
+    ? show.summary.replace(/<[^>]+>/g, "") 
+    : "No summary available.";
+
+  yearEl.textContent = show.premiered
+    ? show.premiered.slice(0, 4)
+    : "Unknown year";
+
+  genresEl.textContent = show.genres?.length
+    ? show.genres.join(" · ")
+    : "No genres";
+
+
 async function loadHomeMovies() {
   const movieGrid = document.getElementById("movieGrid");
 
