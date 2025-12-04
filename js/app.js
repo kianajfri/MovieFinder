@@ -38,6 +38,13 @@ function renderHero() {
   };
 }
 
+function changeHeroSlide(direction = 1) {
+  if (heroShows.length === 0) return;
+  heroIndex = (heroIndex + direction + heroShows.length) % heroShows.length;
+  renderHero();
+}
+
+
 async function loadHomeMovies() {
   const movieGrid = document.getElementById("movieGrid");
 
