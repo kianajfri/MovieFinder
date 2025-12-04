@@ -35,3 +35,13 @@ export async function showPeopleSearch(query) {
  export async function showsPage(page = 0) {
   return fetchData(`/shows?page=${page}`);
 }
+
+export async function getShowsByGenre(genre, page = 0) {
+  const data = await getShowsPage(page);
+
+  if (!data) return [];
+  
+  return data.filter(show =>
+    show.genres?.map(g => g.toLowerCase()).includes(genre.toLowerCase())
+  );
+}
