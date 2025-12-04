@@ -23,10 +23,11 @@ body {
   z-index: 10;
 }
 
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: #f5c518; 
+.header-logo {
+  width: 7.25rem;
+  height: 3.5rem;
+  opacity: 1;
+
 }
 
 .search-box {
