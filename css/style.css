@@ -1,88 +1,73 @@
-/* styles.css - minimal, responsive layout */
-/* English comments inside the CSS are optional; primary instructions in Persian */
-:root{
-  --gap: 16px;
-  --max-width: 1000px;
-  --accent: #0d6efd;
-  --muted: #6c757d;
-}
-*{box-sizing:border-box}
-body{
-  font-family: "Segoe UI", Tahoma, Helvetica, Arial, sans-serif;
-  margin:0;
-  line-height:1.4;
-  background:#f7f7fb;
-  color:#111;
-}
-.container{
-  max-width:var(--max-width);
-  margin:0 auto;
-  padding:16px;
-}
-.site-header{
-  background:white;
-  border-bottom:1px solid #eee;
-}
-.logo{margin:10px 0;font-size:20px}
-.hero{
-  padding:32px 0;
-  text-align:center;
-}
-.search-wrapper{
-  position:relative;
-  max-width:600px;
-  margin:16px auto 0;
-}
-#searchInput{
-  width:100%;
-  padding:12px 14px;
-  font-size:16px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  outline:none;
-}
-#searchInput:focus{box-shadow:0 0 0 3px rgba(13,110,253,0.08);border-color:var(--accent);}
-.dropdown{
-  position:absolute;
-  left:0; right:0;
-  background:white;
-  border:1px solid #eee;
-  border-top:0;
-  max-height:320px;
-  overflow:auto;
-  z-index:50;
-  border-radius:0 0 8px 8px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.06);
-}
-.dropdown .item{
-  padding:10px 12px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  cursor:pointer;
-}
-.dropdown .item:hover{background:#fafafa}
-.dropdown .title{font-weight:600}
-.dropdown .meta{font-size:13px;color:var(--muted)}
-.hidden{display:none}
 
-/* Movie card basics for results/details lists */
-.movie-card{
-  display:flex;
-  gap:12px;
-  background:white;
-  border-radius:8px;
-  padding:12px;
-  margin-bottom:12px;
-  align-items:center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.movie-card img{width:80px;height:120px;object-fit:cover;border-radius:6px}
-.movie-card .info{flex:1}
-.movie-card h3{margin:0 0 6px;font-size:16px}
-.meta-small{font-size:13px;color:var(--muted);margin-bottom:6px}
 
-/* responsive */
-@media (max-width:600px){
-  .movie-card{flex-direction:row}
-  .movie-card img{width:64px;height:96px}
+body {
+  background: #0d0d0d;
+  color: #fff;
+  font-family: Arial, sans-serif;
 }
+
+.navbar {
+  width: 100%;
+  padding: 15px 30px;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #f5c518; 
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  width: 220px;
+  border: none;
+  border-radius: 6px;
+}
+
+.search-box button {
+  padding: 8px 14px;
+  background: #f5c518;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  background: #222;
+  border-radius: 6px;
+  padding: 6px 0;
+  display: none;
+}
+
+.search-dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.search-dropdown-item:hover {
+  background: #333;
+}
+
