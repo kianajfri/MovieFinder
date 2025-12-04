@@ -16,6 +16,10 @@ function renderHero() {
 
   const show = heroShows[heroIndex];
 
+   const bgImage =
+    show.image?.original || show.image?.medium || "./assets/no-image.png";
+  heroSection.style.backgroundImage = `url(${bgImage})`;
+
 async function loadHomeMovies() {
   const movieGrid = document.getElementById("movieGrid");
 
