@@ -21,6 +21,9 @@ export async function searchShows(query) {
 }
 
 export async function showSingleSearch(query) {
-  return fetchData(`/singlesearch/shows?q=:query${encodeURIComponent(query)}`);
+  return fetchData(`/singlesearch/shows?q=${encodeURIComponent(query)}`);
 }
 
+export async function showLookUp(id) {
+  return fetchData(`/lookup/shows?tvrage=${id}`);
+}
