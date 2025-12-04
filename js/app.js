@@ -56,9 +56,11 @@ async function initHero() {
 
   if (!data) return;
 
-    heroShows = data
-  .filter(s => s.image?.original) 
-  .slice(0, 8);
+heroShows = data
+  .filter(s => s.image?.original)         
+  .filter(s => s.rating?.average > 8)     
+  .filter(s => s.summary && s.summary.length > 40) 
+  .slice(0, 6);
 
 
   if (heroShows.length === 0) return;
