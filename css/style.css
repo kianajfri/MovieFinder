@@ -125,3 +125,21 @@ body {
   font-size: 13px;
   color: #ccc;
 }
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: #777;
+  margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .search-box input {
+    width: 160px;
+  }
+}
