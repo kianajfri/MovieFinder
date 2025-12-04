@@ -25,10 +25,27 @@
   </form>
 </header>
     <main>
-    <section class="hero">
-      <h1>Discover Movies & TV Shows</h1>
-      <p>Search and explore thousands of titles.</p>
-    </section>
+   <section class="hero" id="hero">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <h2 id="heroTitle">Loading...</h2>
+      <p id="heroSummary">Please wait while we load some shows.</p>
+
+      <div class="hero-meta">
+        <span id="heroYear"></span>
+        <span id="heroGenres"></span>
+      </div>
+
+      <button id="heroMoreBtn" class="hero-btn">View details</button>
+    </div>
+
+    <div class="hero-controls">
+      <button id="heroPrev" class="hero-circle-btn">‹</button>
+      <button id="heroNext" class="hero-circle-btn">›</button>
+    </div>
+  </div>
+</section>
+
     <section class="movie-grid" id="movieGrid">
     </section>
   </main>

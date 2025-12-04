@@ -87,18 +87,100 @@ body {
 }
 
 .hero {
-  padding: 60px 30px;
-  text-align: left;
+  position: relative;
+  min-height: 320px;
+  padding: 40px 30px;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.hero h1 {
-  font-size: 44px;
+.hero-overlay {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  border-radius: 16px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.4)
+  );
+  position: relative;
+}
+
+.hero-content {
+  max-width: 520px;
+}
+
+.hero h2 {
+  font-size: 32px;
   margin-bottom: 10px;
 }
 
 .hero p {
-  color: #ccc;
-  font-size: 16px;
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  max-height: 80px;
+  overflow: hidden;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: #f5c518;
+  margin-bottom: 16px;
+}
+
+.hero-btn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #f5c518;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hero-controls {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.hero-circle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  cursor: pointer;
+}
+
+.hero-circle-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 16px;
+  }
+
+  .hero-overlay {
+    padding: 24px 16px;
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
 }
 
 .movie-grid {
