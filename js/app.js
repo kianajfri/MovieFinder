@@ -33,6 +33,10 @@ function renderHero() {
     ? show.genres.join(" · ")
     : "No genres";
 
+      moreBtn.onclick = () => {
+    window.location.href = `details.html?id=${show.id}`;
+  };
+}
 
 async function loadHomeMovies() {
   const movieGrid = document.getElementById("movieGrid");
