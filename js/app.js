@@ -1,4 +1,4 @@
-import {showsPage } from "./api.js";
+import {showsPage, getShowByName } from "./api.js";
 
 let heroShows = [];
 let heroIndex = 0;
@@ -87,14 +87,18 @@ heroShows = data
 
 
 async function loadHomeMovies() {
-  const movieGrid = document.getElementById("movieGrid");
+   const movieGrid = document.getElementById("movieGrid");
+  if (!movieGrid) return;
 
-  const data = await showsPage(0);
+  movieGrid.innerHTML = "<p style='color:#aaa;'>Loading shows...</p>";
 
-  if (!data) {
-    movieGrid.innerHTML = "<p>Error loading movies</p>";
-    return;
-  }
+  try {
+    const data = await showsPage(0);
+
+    if (!data) {
+      movieGrid.innerHTML = "<p style='color:#aaa;'>Failed to load shows.</p>";
+      return;
+    }
 
   data.forEach(show => {
     const card = document.createElement("div");

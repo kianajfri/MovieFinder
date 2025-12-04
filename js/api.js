@@ -20,7 +20,7 @@ export async function searchShows(query) {
   return fetchData(`/search/shows?q=${encodeURIComponent(query)}`);
 }
 
-export async function showSingleSearch(query) {
+export async function getShowByName(query) {
   return fetchData(`/singlesearch/shows?q=${encodeURIComponent(query)}`);
 }
 
@@ -29,7 +29,7 @@ export async function showSingleSearch(query) {
 }
 
 export async function getShowsByGenre(genre, page = 0) {
-  const data = await getShowsPage(page);
+  const data = await showsPage(page);
 
   if (!data) return [];
 
