@@ -1,8 +1,47 @@
-import {showsPage, getShowByName } from "./api.js";
+import { showsPage } from "./api.js";
+
+const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/";
+const TMDB_GENRES = {
+  28: "Action",
+  12: "Adventure",
+  16: "Animation",
+  35: "Comedy",
+  80: "Crime",
+  99: "Documentary",
+  18: "Drama",
+  10751: "Family",
+  14: "Fantasy",
+  36: "History",
+  27: "Horror",
+  10402: "Music",
+  9648: "Mystery",
+  10749: "Romance",
+  878: "Science Fiction",
+  10770: "TV Movie",
+  53: "Thriller",
+  10752: "War",
+  37: "Western"
+};
 
 let heroShows = [];
 let heroIndex = 0;
 let heroTimer = null;
+let heroPaginationEl = null;
+let currentPage = 1;
+let totalPages = 1;
+
+function formatGenres(genreIds = []) {
+  const names = genreIds
+    .map(id => TMDB_GENRES[id])
+    .filter(Boolean);
+  return names.length ? names.join(" / ") : "No genres";
+}
+
+function getHeroImage(show) {
+  if (show.backdrop_path) return `${TMDB_IMAGE_BASE}w1280${show.backdrop_path}`;
+  if (show.poster_path) return `${TMDB_IMAGE_BASE}w780${show.poster_path}`;
+  return "../assets/no-image.png";
+}
 
 function renderHero() {
   const heroSection = document.getElementById("hero");
@@ -16,32 +55,61 @@ function renderHero() {
 
   const show = heroShows[heroIndex];
 
-   const bgImage =
-    show.image?.original || show.image?.medium || "./assets/no-image.png";
+  const bgImage = getHeroImage(show);
   heroSection.style.backgroundImage = `url(${bgImage})`;
 
-    titleEl.textContent = show.name || "Unknown title";
-  sumEl.textContent = show.summary
-    ? show.summary.replace(/<[^>]+>/g, "") 
-    : "No summary available.";
+  titleEl.textContent = show.title || show.name || "Unknown title";
+  sumEl.textContent = show.overview || "No summary available.";
 
-  yearEl.textContent = show.premiered
-    ? show.premiered.slice(0, 4)
+  yearEl.textContent = show.release_date
+    ? show.release_date.slice(0, 4)
     : "Unknown year";
 
-  genresEl.textContent = show.genres?.length
-    ? show.genres.join(" · ")
-    : "No genres";
+  genresEl.textContent = formatGenres(show.genre_ids);
 
-      moreBtn.onclick = () => {
+  moreBtn.onclick = () => {
     window.location.href = `details.html?id=${show.id}`;
   };
+
+  updateHeroDots();
+}
+
+function updateHeroDots() {
+  if (!heroPaginationEl) return;
+
+  const dots = heroPaginationEl.querySelectorAll(".hero-dot");
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle("active", idx === heroIndex);
+  });
+}
+
+function renderHeroPagination() {
+  heroPaginationEl = document.getElementById("heroPagination");
+  if (!heroPaginationEl) return;
+
+  heroPaginationEl.innerHTML = "";
+
+  heroShows.forEach((_, idx) => {
+    const dot = document.createElement("button");
+    dot.className = `hero-dot${idx === heroIndex ? " active" : ""}`;
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Go to slide ${idx + 1}`);
+    dot.addEventListener("click", () => {
+      goToHeroSlide(idx);
+      startHeroAutoPlay();
+    });
+    heroPaginationEl.appendChild(dot);
+  });
+}
+
+function goToHeroSlide(index) {
+  if (heroShows.length === 0) return;
+  heroIndex = (index + heroShows.length) % heroShows.length;
+  renderHero();
 }
 
 function changeHeroSlide(direction = 1) {
-  if (heroShows.length === 0) return;
-  heroIndex = (heroIndex + direction + heroShows.length) % heroShows.length;
-  renderHero();
+  goToHeroSlide(heroIndex + direction);
 }
 
 function startHeroAutoPlay() {
@@ -54,88 +122,169 @@ function startHeroAutoPlay() {
 async function initHero() {
   const data = await showsPage(1);
 
-  if (!data) return;
+  if (!data || !data.results) return;
 
-heroShows = data
-  .filter(s => s.image?.original)         
-  .filter(s => s.rating?.average > 8)     
-  .filter(s => s.summary && s.summary.length > 40) 
-  .slice(0, 6);
-
+  heroShows = data.results
+    .filter(s => s.backdrop_path || s.poster_path)
+    .filter(s => s.vote_average && s.vote_average >= 7)
+    .filter(s => s.overview && s.overview.length > 40)
+    .slice(0, 6);
 
   if (heroShows.length === 0) return;
 
   renderHero();
   startHeroAutoPlay();
-
-   const prevBtn = document.getElementById("heroPrev");
-  const nextBtn = document.getElementById("heroNext");
-
-  if (prevBtn && nextBtn) {
-    prevBtn.addEventListener("click", () => {
-      changeHeroSlide(-1);
-      startHeroAutoPlay();
-    });
-
-    nextBtn.addEventListener("click", () => {
-      changeHeroSlide(1);
-      startHeroAutoPlay();
-    });
-  }
+  renderHeroPagination();
 }
 
+function getYear(dateString) {
+  return dateString ? dateString.slice(0, 4) : "Unknown";
+}
 
-async function loadHomeMovies() {
-   const movieGrid = document.getElementById("movieGrid");
-  if (!movieGrid) return;
+function renderMovieCards(movies) {
+  const movieGrid = document.getElementById("movieGrid");
+  movieGrid.innerHTML = "";
 
-  movieGrid.innerHTML = "<p style='color:#aaa;'>Loading shows...</p>";
-
-  try {
-    const data = await showsPage(0);
-
-    if (!data) {
-      movieGrid.innerHTML = "<p style='color:#aaa;'>Failed to load shows.</p>";
-      return;
-    }
-
-     const filtered = [];
-    for (let i = 0; i < data.length; i++) {
-      const show = data[i];
-
-      if (!show.image || !show.image.medium || !show.premiered) continue;
-
-      const year = parseInt(show.premiered.slice(0, 4), 10);
-      const rating = show.rating && show.rating.average ? show.rating.average : 0;
-
-      if (year >= 2018 && rating >= 6) {
-        filtered.push(show);
-      }
-    }
-
-      filtered.sort(function (a, b) {
-      const ratingA = a.rating && a.rating.average ? a.rating.average : 0;
-      const ratingB = b.rating && b.rating.average ? b.rating.average : 0;
-
-      return ratingB - ratingA;
-    });
-
-  data.forEach(show => {
+  movies.forEach(movie => {
     const card = document.createElement("div");
     card.className = "movie-card";
+
+    const imageUrl = movie.poster_path
+      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+      : "../assets/no-image.png";
+
+    const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
+    const year = getYear(movie.release_date);
+    const genres = formatGenres(movie.genre_ids);
+
     card.innerHTML = `
-      <img src="${show.image?.medium || './assets/no-image.png'}" alt="${show.name}" />
+      <div class="movie-poster">
+        <img src="${imageUrl}" alt="${movie.title}" />
+        <button class="details-btn" type="button">Details</button>
+      </div>
       <div class="movie-card-info">
-        <h4>${show.name}</h4>
-        <span>${show.premiered || "Unknown"}</span>
+        <h4>${movie.title}</h4>
+        <div class="movie-meta">
+          <span>${year}</span>
+          <span class="rating">&#9733; ${rating}</span>
+        </div>
+        <span class="movie-genres">${genres}</span>
       </div>
     `;
-      card.addEventListener("click", () => {
-      window.location.href = `details.html?id=${show.id}`;
+
+    card.addEventListener("click", () => {
+      window.location.href = `details.html?id=${movie.id}`;
+    });
+
+    const detailsBtn = card.querySelector(".details-btn");
+    detailsBtn.addEventListener("click", e => {
+      e.stopPropagation();
+      window.location.href = `details.html?id=${movie.id}`;
     });
 
     movieGrid.appendChild(card);
   });
 }
+
+function createPageButton({ label, page, disabled = false, active = false }) {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.textContent = label;
+  btn.className = "page-chip";
+  if (active) btn.classList.add("active");
+  if (disabled) btn.classList.add("disabled");
+
+  if (!disabled && page !== null) {
+    btn.addEventListener("click", () => loadHomeMovies(page));
+  }
+  return btn;
+}
+
+function buildPageList(total, current) {
+  const pages = [];
+  const add = p => {
+    if (p >= 1 && p <= total && !pages.includes(p)) pages.push(p);
+  };
+
+  add(1);
+  add(total);
+  for (let p = current - 1; p <= current + 1; p += 1) add(p);
+  add(2);
+  add(total - 1);
+
+  pages.sort((a, b) => a - b);
+
+  const output = [];
+  for (let i = 0; i < pages.length; i += 1) {
+    output.push(pages[i]);
+    if (pages[i + 1] && pages[i + 1] - pages[i] > 1) {
+      output.push("ellipsis");
+    }
+  }
+  return output;
+}
+
+function renderPagination() {
+  const paginationEl = document.getElementById("moviePagination");
+  paginationEl.innerHTML = "";
+
+  const total = Math.min(totalPages, 25);
+
+  paginationEl.appendChild(
+    createPageButton({
+      label: "<",
+      page: currentPage > 1 ? currentPage - 1 : null,
+      disabled: currentPage === 1
+    })
+  );
+
+  buildPageList(total, currentPage).forEach(item => {
+    if (item === "ellipsis") {
+      const ellipsis = document.createElement("span");
+      ellipsis.className = "page-ellipsis";
+      ellipsis.textContent = "...";
+      paginationEl.appendChild(ellipsis);
+      return;
+    }
+
+    paginationEl.appendChild(
+      createPageButton({
+        label: String(item),
+        page: item,
+        active: item === currentPage
+      })
+    );
+  });
+
+  paginationEl.appendChild(
+    createPageButton({
+      label: ">",
+      page: currentPage < total ? currentPage + 1 : null,
+      disabled: currentPage === total
+    })
+  );
+}
+
+async function loadHomeMovies(page = 1) {
+  const movieGrid = document.getElementById("movieGrid");
+  const paginationEl = document.getElementById("moviePagination");
+
+  movieGrid.innerHTML = "";
+  paginationEl.innerHTML = "";
+
+  const data = await showsPage(page);
+
+  if (!data || !data.results) {
+    movieGrid.innerHTML = "<p>Error loading movies</p>";
+    return;
+  }
+
+  currentPage = data.page || page;
+  totalPages = data.total_pages || 1;
+
+  renderMovieCards(data.results);
+  renderPagination();
+}
+
 loadHomeMovies();
 initHero();

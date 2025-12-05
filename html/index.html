@@ -10,16 +10,12 @@
 <body>
     <header class="navbar">
   <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
-
   <nav class="menu">
     <a href="/html/index.html">Home</a>
     <a href="/html/genre.html">Genres</a>
-    <a href="/html/search.html">Search</a>
-    <a href="/html/api.html">API Docs</a>
   </nav>
-
-  <form class="search-box" id="searchForm">
-    <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off" />
+  <form class="search-box" action="/html/search.html">
+    <input type="text" name="q" placeholder="Search movies..." autocomplete="off" />
     <button type="submit">Search</button>
     <div class="search-dropdown" id="searchDropdown"></div>
   </form>
@@ -29,28 +25,22 @@
   <div class="hero-overlay">
     <div class="hero-content">
       <h2 id="heroTitle">Loading...</h2>
-      <p id="heroSummary">Please wait while we load some shows.</p>
-
-      <div class="hero-meta">
-        <span id="heroYear"></span>
+          <div class="hero-meta">
         <span id="heroGenres"></span>
+        <span id="heroYear"></span>
       </div>
-
+      <p id="heroSummary">Please wait while we load some shows.</p>
       <button id="heroMoreBtn" class="hero-btn">View details</button>
     </div>
-
-    <div class="hero-controls">
-      <button id="heroPrev" class="hero-circle-btn">‹</button>
-      <button id="heroNext" class="hero-circle-btn">›</button>
-    </div>
+    <div class="hero-pagination" id="heroPagination"></div>
   </div>
 </section>
-
     <section class="movie-grid" id="movieGrid">
     </section>
+    <div class="movie-pagination" id="moviePagination"></div>
   </main>
     <footer class="footer">
-    <p>© 2025 Movie Finder</p>
+    <p>Ac 2025 Movie Finder</p>
   </footer>
 </body>
 </html>

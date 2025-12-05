@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Finder - Genres</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="module" src="/js/genre.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
+    <nav class="menu">
+      <a href="/html/index.html">Home</a>
+      <a href="/html/genre.html">Genres</a>
+    </nav>
+    <form class="search-box" action="/html/search.html">
+      <input type="text" name="q" placeholder="Search movies..." autocomplete="off" />
+      <button type="submit">Go</button>
+    </form>
+  </header>
+
+  <main class="page">
+    <h1>Browse by Genre</h1>
+    <p class="description">Pick a genre to see popular movies. No frills—just a quick dropdown and a simple grid.</p>
+
+    <div class="filter-row">
+      <label for="genreSelect">Genre</label>
+      <select id="genreSelect"></select>
+    </div>
+    <div id="genreStatus" class="placeholder-box"></div>
+    <section class="movie-grid" id="genreGrid"></section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Movie Finder</p>
+  </footer>
+</body>
+</html>

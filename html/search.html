@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Finder - Search</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="module" src="/js/search.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
+    <nav class="menu">
+      <a href="/html/index.html">Home</a>
+      <a href="/html/genre.html">Genres</a>
+      <a href="/html/search.html">Search</a>
+      <a href="/html/api.html">API Docs</a>
+    </nav>
+    <form class="search-box" id="searchForm">
+      <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+  <main class="page">
+    <h1>Search Movies</h1>
+    <p class="description">Straightforward search—type, hit search, see results.</p>
+    <div id="searchStatus" class="placeholder-box"></div>
+    <section class="movie-grid" id="searchGrid"></section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Movie Finder</p>
+  </footer>
+</body>
+</html>

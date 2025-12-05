@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Finder - API</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
+    <nav class="menu">
+      <a href="/html/index.html">Home</a>
+      <a href="/html/genre.html">Genres</a>
+      <a href="/html/search.html">Search</a>
+      <a href="/html/api.html">API Docs</a>
+    </nav>
+    <form class="search-box" action="/html/search.html">
+      <input type="text" name="q" placeholder="Search movies..." autocomplete="off" />
+      <button type="submit">Go</button>
+    </form>
+  </header>
+
+  <main class="page">
+    <h1>API Notes</h1>
+    <p class="description">
+      This app pulls data from The Movie Database (TMDB) using simple REST endpoints.
+      Popular movies, genre browsing, search, and individual movie details all come from TMDB.
+      Endpoints are used directly in the front end for speed—no extra backend layers.
+    </p>
+    <div class="placeholder-box">
+      <p><strong>Used endpoints:</strong></p>
+      <ul style="margin-left: 18px; margin-top: 8px; line-height: 1.6;">
+        <li>/movie/popular</li>
+        <li>/discover/movie?with_genres=GENRE_ID</li>
+        <li>/search/movie</li>
+        <li>/movie/{id}</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Movie Finder</p>
+  </footer>
+</body>
+</html>
