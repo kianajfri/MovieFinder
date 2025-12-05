@@ -19,7 +19,7 @@ function createCard(movie) {
     : "../assets/no-image.png";
 
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
-  const year = movie.release_date ? movie.release_date.slice(0, 4) : "—";
+  const year = movie.release_date ? movie.release_date.slice(0, 4) : "Unknown";
 
   card.innerHTML = `
     <img src="${imageUrl}" alt="${movie.title}" />
@@ -27,7 +27,7 @@ function createCard(movie) {
       <h4>${movie.title}</h4>
       <div class="movie-meta">
         <span>${year}</span>
-        <span class="rating">★ ${rating}</span>
+        <span class="rating">&#9733; ${rating}</span>
       </div>
     </div>
   `;

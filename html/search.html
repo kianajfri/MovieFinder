@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Finder - Search</title>
   <link rel="stylesheet" href="/css/style.css">
+  <script type="module" src="/js/nav.js" defer></script>
   <script type="module" src="/js/search.js" defer></script>
 </head>
 <body>
@@ -16,21 +17,22 @@
       <a href="/html/search.html">Search</a>
       <a href="/html/api.html">API Docs</a>
     </nav>
-    <form class="search-box" id="searchForm">
-      <input type="text" id="searchInput" placeholder="Search movies..." autocomplete="off" />
+    <form class="search-box" id="searchForm" action="/html/search.html">
+      <input type="text" id="searchInput" name="q" placeholder="Search movies..." autocomplete="off" />
       <button type="submit">Search</button>
+      <div class="search-dropdown"></div>
     </form>
   </header>
 
   <main class="page">
     <h1>Search Movies</h1>
-    <p class="description">Straightforward search—type, hit search, see results.</p>
+    <p class="description">Straightforward search - type, hit search, see results.</p>
     <div id="searchStatus" class="placeholder-box"></div>
     <section class="movie-grid" id="searchGrid"></section>
   </main>
 
   <footer class="footer">
-    <p>© 2025 Movie Finder</p>
+    <p>Ac 2025 Movie Finder</p>
   </footer>
 </body>
 </html>
