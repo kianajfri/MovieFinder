@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Finder</title>
     <script type="module" src="/js/app.js" defer></script>
+    <script type="module" src="/js/nav.js" defer></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -12,7 +13,10 @@
   <div class="logo"><img class="header-logo" src="/images/imdb-logo.png" alt="imdb-logo"></div>
   <nav class="menu">
     <a href="/html/index.html">Home</a>
-    <a href="/html/genre.html">Genres</a>
+    <div class="menu-dropdown" data-genre-dropdown>
+      <button type="button" class="menu-toggle" data-genre-toggle aria-expanded="false">Genres</button>
+      <div class="menu-dropdown-list" data-genre-list></div>
+    </div>
   </nav>
   <form class="search-box" action="/html/search.html">
     <input type="text" name="q" placeholder="Search movies..." autocomplete="off" />

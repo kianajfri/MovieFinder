@@ -25,6 +25,7 @@ const TMDB_GENRES = {
 const dropdown = document.getElementById("genreSelect");
 const grid = document.getElementById("genreGrid");
 const statusBox = document.getElementById("genreStatus");
+const initialGenre = new URLSearchParams(window.location.search).get("genre");
 
 function formatGenres(ids = []) {
   const names = ids.map(id => TMDB_GENRES[id]).filter(Boolean);
@@ -49,7 +50,7 @@ function createCard(movie) {
     : "../assets/no-image.png";
 
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
-  const year = movie.release_date ? movie.release_date.slice(0, 4) : "—";
+  const year = movie.release_date ? movie.release_date.slice(0, 4) : "Unknown";
   const genres = formatGenres(movie.genre_ids);
 
   card.innerHTML = `
@@ -58,7 +59,7 @@ function createCard(movie) {
       <h4>${movie.title}</h4>
       <div class="movie-meta">
         <span>${year}</span>
-        <span class="rating">★ ${rating}</span>
+        <span class="rating">&#9733; ${rating}</span>
       </div>
       <span class="movie-genres">${genres}</span>
     </div>
@@ -85,16 +86,25 @@ async function loadGenre(genreKey) {
 
 function init() {
   if (!dropdown || !grid) return;
+
   renderOptions();
+
+  const desiredGenre = initialGenre?.toLowerCase();
+  const matched = desiredGenre
+    ? GENRE_OPTIONS.find(opt => opt.key.toLowerCase() === desiredGenre)
+    : null;
+
+  if (matched) {
+    dropdown.value = matched.key;
+  } else if (!dropdown.value && GENRE_OPTIONS[0]) {
+    dropdown.value = GENRE_OPTIONS[0].key;
+  }
+
   dropdown.addEventListener("change", e => {
     loadGenre(e.target.value);
   });
-  if (dropdown.value) {
-    loadGenre(dropdown.value);
-  } else if (GENRE_OPTIONS[0]) {
-    dropdown.value = GENRE_OPTIONS[0].key;
-    loadGenre(dropdown.value);
-  }
+
+  loadGenre(dropdown.value);
 }
 
 init();

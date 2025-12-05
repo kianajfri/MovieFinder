@@ -43,8 +43,77 @@ body {
   font-size: 15px;
 }
 
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .menu a:hover {
   color: #f5c518; 
+}
+
+.menu-dropdown {
+  position: relative;
+}
+
+.menu-toggle {
+  background: transparent;
+  border: none;
+  color: #ddd;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.menu-toggle::after {
+  content: "▾";
+  font-size: 12px;
+}
+
+.menu-dropdown.open .menu-toggle {
+  color: #f5c518;
+  background: #1a1a1a;
+}
+
+.menu-dropdown-list {
+  position: absolute;
+  top: 36px;
+  right: 0;
+  background: #0f0f0f;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  min-width: 160px;
+  padding: 6px;
+  display: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+}
+
+.menu-dropdown.open .menu-dropdown-list {
+  display: grid;
+  gap: 6px;
+}
+
+.menu-dropdown-item {
+  width: 100%;
+  text-align: left;
+  background: #121212;
+  border: 1px solid transparent;
+  color: #e5e5e5;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.menu-dropdown-item:hover {
+  background: #181818;
+  border-color: #242424;
+  color: #f5c518;
 }
 
 .search-box {
