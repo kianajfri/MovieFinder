@@ -37,6 +37,27 @@ function formatGenres(genreIds = []) {
   return names.length ? names.join(" / ") : "No genres";
 }
 
+function renderHeroGenres(container, genreIds = []) {
+  if (!container) return;
+  container.innerHTML = "";
+
+  const names = genreIds
+    .map(id => TMDB_GENRES[id])
+    .filter(Boolean);
+
+  if (!names.length) {
+    container.textContent = "No genres";
+    return;
+  }
+
+  names.forEach(name => {
+    const chip = document.createElement("span");
+    chip.className = "hero-genre-chip";
+    chip.textContent = name;
+    container.appendChild(chip);
+  });
+}
+
 function getHeroImage(show) {
   if (show.backdrop_path) return `${TMDB_IMAGE_BASE}w1280${show.backdrop_path}`;
   if (show.poster_path) return `${TMDB_IMAGE_BASE}w780${show.poster_path}`;
@@ -65,7 +86,7 @@ function renderHero() {
     ? show.release_date.slice(0, 4)
     : "Unknown year";
 
-  genresEl.textContent = formatGenres(show.genre_ids);
+  renderHeroGenres(genresEl, show.genre_ids);
 
   moreBtn.onclick = () => {
     window.location.href = `details.html?id=${show.id}`;
