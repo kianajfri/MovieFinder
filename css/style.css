@@ -11,6 +11,15 @@ body {
   color: #f5f5f5;
 }
 
+:root {
+  --movie-card-width: 243.2px;
+  --movie-card-height: 430px;
+  --movie-card-gap: 10px;
+  --movie-card-bottom: 15px;
+  --movie-card-margin: 10px;
+  --movie-card-min: 180px;
+}
+
 .navbar {
   width: 100%;
   padding: 10px 22px;
@@ -25,7 +34,6 @@ body {
   z-index: 20;
   background: transparent;
 }
-
 
 .logo {
   display: inline-flex;
@@ -349,8 +357,10 @@ main {
 .movie-grid {
   padding: 20px 30px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 20px;
+  --movie-card-fluid-width: clamp(var(--movie-card-min), 24vw, var(--movie-card-width));
+  grid-template-columns: repeat(auto-fit, minmax(var(--movie-card-fluid-width), 1fr));
+  gap: var(--movie-card-gap);
+  justify-items: center;
 }
 
 .movie-card {
@@ -361,6 +371,13 @@ main {
   transition: 0.2s;
   display: flex;
   flex-direction: column;
+  width: var(--movie-card-fluid-width);
+  max-width: var(--movie-card-width);
+  aspect-ratio: 243.2 / 304;
+  min-height: var(--movie-card-height);
+  padding-bottom: var(--movie-card-bottom);
+  margin: var(--movie-card-margin);
+  opacity: 1;
 }
 
 .movie-card:hover {
@@ -370,16 +387,19 @@ main {
 .movie-poster {
   position: relative;
   overflow: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .movie-card img {
   width: 100%;
-  height: 260px;
+  height: 100%;
   object-fit: cover;
 }
 
 .movie-card-info {
   padding: 10px;
+  flex: 0 0 auto;
 }
 
 .movie-card-info h4 {
@@ -519,20 +539,27 @@ main {
     max-width: 100%;
   }
 
-  .movie-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  }
 }
 
 @media (max-width: 900px) {
   .movie-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    --movie-card-fluid-width: clamp(170px, 40vw, var(--movie-card-width));
   }
 }
 
 @media (min-width: 1200px) {
   .movie-grid {
-    grid-template-columns: repeat(5, minmax(160px, 1fr));
+    --movie-card-fluid-width: var(--movie-card-width);
+  }
+}
+
+@media (max-width: 600px) {
+  .movie-grid {
+    --movie-card-fluid-width: clamp(150px, 90vw, var(--movie-card-width));
+  }
+
+  .movie-card {
+    width: min(100%, var(--movie-card-fluid-width));
   }
 }
 
