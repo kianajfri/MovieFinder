@@ -61,7 +61,7 @@ function buildList() {
     item.className = "menu-dropdown-item";
     item.textContent = opt.label;
     item.addEventListener("click", () => {
-      window.location.href = `/genre.html?genre=${encodeURIComponent(opt.key)}`;
+      window.location.href = `genre.html?genre=${encodeURIComponent(opt.key)}`;
     });
     list.appendChild(item);
   });
@@ -154,11 +154,11 @@ function handleDropdownClick(e, input, drop) {
 
   if (item) {
     const id = item.getAttribute("data-id");
-    if (id) window.location.href = `/details.html?id=${id}`;
+    if (id) window.location.href = `details.html?id=${id}`;
     closeSearchBox(drop);
   } else if (viewAll) {
     const query = viewAll.getAttribute("data-query") || input.value.trim();
-    window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
   }
 }
 
