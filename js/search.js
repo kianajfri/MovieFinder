@@ -16,7 +16,7 @@ function createCard(movie) {
 
   const imageUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    : "../assets/no-image.png";
+    : "assets/no-image.png";
 
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
   const year = movie.release_date ? movie.release_date.slice(0, 4) : "Unknown";

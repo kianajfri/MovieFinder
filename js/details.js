@@ -21,7 +21,7 @@ function formatRuntime(runtime) {
 }
 
 function getImage(path, size = "w500") {
-  return path ? `${TMDB_IMAGE_BASE}${size}${path}` : "../assets/no-image.png";
+  return path ? `${TMDB_IMAGE_BASE}${size}${path}` : "assets/no-image.png";
 }
 
 function chipList(genres = []) {

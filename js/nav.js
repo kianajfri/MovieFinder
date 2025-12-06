@@ -111,7 +111,7 @@ function escapeAttr(value = "") {
 
 function searchItemTemplate(movie) {
   const title = movie.title || movie.name || "Untitled";
-  const poster = movie.poster_path ? `${TMDB_IMAGE_BASE}w154${movie.poster_path}` : "../assets/no-image.png";
+  const poster = movie.poster_path ? `${TMDB_IMAGE_BASE}w154${movie.poster_path}` : "assets/no-image.png";
   const year = movie.release_date ? movie.release_date.slice(0, 4) : "Unknown";
   const genres = formatGenres(movie.genre_ids);
 

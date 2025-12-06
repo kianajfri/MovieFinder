@@ -61,7 +61,7 @@ function renderHeroGenres(container, genreIds = []) {
 function getHeroImage(show) {
   if (show.backdrop_path) return `${TMDB_IMAGE_BASE}w1280${show.backdrop_path}`;
   if (show.poster_path) return `${TMDB_IMAGE_BASE}w780${show.poster_path}`;
-  return "../assets/no-image.png";
+  return "assets/no-image.png";
 }
 
 function renderHero() {
@@ -172,7 +172,7 @@ function renderMovieCards(movies) {
 
     const imageUrl = movie.poster_path
       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-      : "../assets/no-image.png";
+      : "assets/no-image.png";
 
     const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
     const year = getYear(movie.release_date);
