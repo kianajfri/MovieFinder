@@ -4,7 +4,7 @@ Lightweight movie search and discovery built with plain HTML, CSS, and vanilla J
 
 ## Live Demo
 - https://kianajfri.github.io/MovieFinder/
-
+- Note: Must be opened with a VPN to work.
 ## Features
 - Search movies, view details (poster, rating, genres, overview), and jump to a dedicated details page.
 - Popular movies with pagination and a hero carousel of highly rated titles.
